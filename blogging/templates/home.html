@@ -1,0 +1,30 @@
+<html>
+<h1>Welcome to startyourblog!</h1>
+<head>
+ <style>
+ h1{
+     font-family: "Lucida Console", "Courier New", monospace;
+     color : 'yellow';
+ }
+body {
+    background-color: powderblue;
+}
+p{
+    color :  black
+}
+</style> {% endcomment %}
+</head>
+<body style="background-color:powderblue;">
+<p> HI </p>
+{% comment %} {{object_list}} {% endcomment %}
+<dl> titles and their description 
+{%for i in object_list%}
+<dt>{{ i.id }}{{i.u_title}}</dt>
+<dd>{{i.u_name}}</dd>
+{% endfor%}
+</dl>
+<form method=POST>
+<input type=submit value="let's blog">
+</form>
+</body>
+</html>
