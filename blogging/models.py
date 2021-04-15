@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+user=settings.AUTH_USER_MODEL
 gender=[("Male",1),("Female",2)]
 # Create your models here.
 class Details(models.Model):
@@ -17,7 +19,8 @@ class Login(models.Model):
         return self.u_name
 
 class Data(models.Model):
-    u_name = models.TextField(max_length=10000,null=False,blank=False)
+    u_content = models.TextField(max_length=10000,null=False,blank=False)
+    u_author = models.ForeignKey(user,on_delete=models.CASCADE,default=1)
     u_title = models.CharField(max_length=500,null=True,blank=True)
     u_image = models.ImageField(upload_to='images',default=None,blank=True,null=True)
     u_date = models.DateTimeField(auto_now_add=True)

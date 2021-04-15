@@ -5,6 +5,7 @@ from blogging.models import Details
 from blogging.models import Login 
 from blogging.models import Data
 from blogging.forms import LoginForm 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (TemplateView, RedirectView, CreateView, ListView, DeleteView, DetailView)
 # Create your views here.
 
@@ -45,10 +46,9 @@ class Home(TemplateView):
 
     # return render(request,"details.html")
 
-
-
-class Data_to_get_post(CreateView):
+class Data_to_get_post(LoginRequiredMixin,CreateView):
     template_name="post.html"
+    login_url= "login_page"
     model = Data
     fields = "__all__"
     def get_success_url(self):
@@ -56,24 +56,27 @@ class Data_to_get_post(CreateView):
 
 
 class Login_page(CreateView):
-    template_name = "login.html"
+    template_name="login.html"
     model = Login
     fields = "__all__"
+    template_name = "login.html"
+
     def get_success_url(self):
         return reverse("data")
 
 
-class Details_page(CreateView):
+class Details_page(LoginRequiredMixin,CreateView):
     template_name = "details.html"
+    login_url= "login_page"
     model = Details
     fields = "__all__"
     def get_success_url(self):
-        return reverse("login")
+        return reverse("home")
 
 
 class Show_all_blogs(ListView):
     template_name = "home.html"
-    # model = Data
+    model = Data
     queryset = Data.objects.all()
     # def get_queryset(self,*args,**kwargs):
     #     q=super(Show_all_blogs,self).get_queryset(*args,**kwargs)

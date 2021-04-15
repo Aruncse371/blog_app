@@ -1,8 +1,9 @@
 <html>
 <h1> Welcome to Startyourblog </h1>
 <body>
-<form action method=post>
-  {{ form }}
+<form method="POST">
+{% csrf_token %}
+  {{ form.as_p }}
   <input type="submit" value="Submit">
 </form>
 </body>
